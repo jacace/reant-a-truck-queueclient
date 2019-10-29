@@ -13,18 +13,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SQSService {
-	
+
 	@Autowired
 	private SQSConfig sqsConfig;
-	
-	public void sendMessage(String txtMsg)
-	{
-		SQSConnection connection =sqsConfig.getConnection();		
-		Session session=null;
-		
+
+	public void sendMessage(String txtMsg) {
+		SQSConnection connection = sqsConfig.getConnection();
+		Session session = null;
+
 		try {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			Queue queue =  session.createQueue("truckposition.fifo");		
+			Queue queue = session.createQueue("truckposition.fifo");
 			MessageProducer producer = session.createProducer(queue);
 			TextMessage message = session.createTextMessage(txtMsg);
 			// Set the message group ID
@@ -32,10 +31,10 @@ public class SQSService {
 			producer.send(message);
 			System.out.println("ID for sent JMS message " + message.getJMSMessageID());
 			System.out.println("JMS Message Sequence Number " + message.getStringProperty("JMS_SQS_SequenceNumber"));
-			
+
 		} catch (JMSException e) {
 			e.printStackTrace();
-		}		
+		}
 
 	}
 

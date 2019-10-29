@@ -23,19 +23,20 @@ public class SQSConfig {
 
 	@Bean
 	public SQSConnection getConnection() {
-		//Native AWS client
-		AmazonSQSClient awsClient=new AmazonSQSClient(getAmazonAWSCredentials());				
-		SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), awsClient);		
-		SQSConnection connection=null;
-		
+		// Native AWS client
+		AmazonSQSClient awsClient = new AmazonSQSClient(getAmazonAWSCredentials());
+		SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), awsClient);
+		SQSConnection connection = null;
+
 		try {
 			connection = connectionFactory.createConnection();
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		
-		//JMS client
-		//AmazonSQSMessagingClientWrapper jmsClient = connection.getWrappedAmazonSQSClient();			
+
+		// JMS client
+		// AmazonSQSMessagingClientWrapper jmsClient =
+		// connection.getWrappedAmazonSQSClient();
 		return connection;
 	}
 
@@ -43,6 +44,5 @@ public class SQSConfig {
 	public AWSCredentials getAmazonAWSCredentials() {
 		return new BasicAWSCredentials(amazonAWSAccessKey, amazonAWSSecretKey);
 	}
-	
-	
+
 }
