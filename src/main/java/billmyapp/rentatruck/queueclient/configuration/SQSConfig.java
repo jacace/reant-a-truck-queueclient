@@ -14,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("billmyapp.rentatruck.queueclient.configuration")
 public class SQSConfig {
 	@Value("${amazon.aws.accesskey}")
 	private String amazonAWSAccessKey;
